@@ -246,6 +246,7 @@
       <div class="panel">
         <div class="toggle"><span class="nm">Sound</span><div class="sw" id="swSound"><i></i></div></div>
         <div class="toggle"><span class="nm">Screen shake</span><div class="sw" id="swShake"><i></i></div></div>
+        <div class="toggle"><span class="nm">Fullscreen</span><div class="sw" id="swFull"><i></i></div></div>
         <div class="field"><input id="setName" maxlength="12" placeholder="leaderboard name" autocomplete="off"><button class="buybtn" id="saveName">SAVE</button></div>
         <div class="field"><input id="devCode" maxlength="24" placeholder="developer code" autocomplete="off"><button class="buybtn" id="devEnter">ENTER</button></div>
         <div id="devStatus" class="lb-status hide"></div>
@@ -1147,6 +1148,7 @@
   function renderSettings(){
     document.getElementById('swSound').classList.toggle('on',save.settings.sound);
     document.getElementById('swShake').classList.toggle('on',save.settings.shake);
+    document.getElementById('swFull').classList.toggle('on',!!isFullscreen());
     document.getElementById('setName').value=save.name||'';
     document.getElementById('devPanel').classList.toggle('hide', !save.dev);
     document.getElementById('devCode').value='';
@@ -1231,6 +1233,17 @@
   document.getElementById('endMenu').addEventListener('click',()=>showScreen('menu'));
   document.getElementById('swSound').addEventListener('click',function(){save.settings.sound=!save.settings.sound;persist();this.classList.toggle('on',save.settings.sound);if(save.settings.sound)blip(660,.1);});
   document.getElementById('swShake').addEventListener('click',function(){save.settings.shake=!save.settings.shake;persist();this.classList.toggle('on',save.settings.shake);});
+  function isFullscreen(){return document.fullscreenElement||document.webkitFullscreenElement;}
+  function toggleFullscreen(){
+    try{
+      if(isFullscreen()){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+      else { const el=document.documentElement; const req=el.requestFullscreen||el.webkitRequestFullscreen; if(req){ const p=req.call(el); if(p&&p.catch)p.catch(()=>{}); } }
+    }catch(e){}
+  }
+  document.getElementById('swFull').addEventListener('click',function(){ toggleFullscreen(); });
+  function syncFsToggle(){const el=document.getElementById('swFull'); if(el) el.classList.toggle('on',!!isFullscreen()); resize();}
+  document.addEventListener('fullscreenchange',syncFsToggle);
+  document.addEventListener('webkitfullscreenchange',syncFsToggle);
   document.getElementById('saveName').addEventListener('click',()=>{const n=document.getElementById('setName').value.trim();save.name=n.slice(0,12);persist();blip(660,.1);});
   // developer mode
   function devStatus(m,ok){const e=document.getElementById('devStatus');if(!m){e.classList.add('hide');return;}e.textContent=m;e.style.color=ok?'var(--med)':'var(--bolt)';e.classList.remove('hide');}
