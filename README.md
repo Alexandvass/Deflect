@@ -31,13 +31,6 @@ Bolts streak in from every side, seekers hunt you down, chargers lunge, and bomb
 - **Dash** gives a split-second of invincibility; use it to slip through bolts and to damage bosses.
 - **Bosses:** you have no weapon — *dash through them* to deal damage. Touching them any other way costs a heart.
 
-## Run it yourself
-
-It's a single self-contained `index.html` — no build step, no dependencies.
-
-- **Locally:** just open `index.html` in a browser.
-- **Online (free):** drop `index.html` onto a static host like GitHub Pages or Netlify.
-
 ---
 
 *Built with plain HTML, CSS, and JavaScript.*
