@@ -3,7 +3,7 @@
 
 **A fast, reflex-driven survival game that runs in any browser.**
 
-▶️ **[Play it here](https://YOUR-USERNAME.github.io/REPO-NAME/)** &nbsp;·&nbsp; works on phone and desktop, no install.
+▶️ **[Play it here](https://deflectg.github.io/deflect/)** &nbsp;·&nbsp; works on phone and desktop, no install.
 
 ---
 
